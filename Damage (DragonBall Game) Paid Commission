@@ -1,0 +1,272 @@
+local DamageShower = {Load = function()
+  Character = game.Players.LocalPlayer.Character
+  Humanoid = Character:WaitForChild("Humanoid")
+end
+}
+Settings = {EXPMultiplier = 1, TweenHeight = 3, CriticChance = 3, CriticMultiplier = 5}
+if game.PlaceId == 313208763 then
+  Settings.EXPMultiplier = Settings.EXPMultiplier * 2
+end
+spawn(function()
+  if game.Players.LocalPlayer.ExtraCritic.Value == true then
+    Settings.CriticChance = 7
+  end
+end
+)
+local QuestLogFunctions = require(game.ReplicatedStorage.QuestLog)
+local GainEXPPLZ = true
+DamageShower.Show = function(dmg, targ, type, CriticEnabled)
+  if targ:FindFirstChild("Humanoid") and targ.Humanoid.Health > 0 then
+    local GainEXP = math.random(1, 4)
+    do
+      if GainEXP == 1 then
+        spawn(function()
+    if GainEXPPLZ == true then
+      GainEXPPLZ = false
+      -- DECOMPILER ERROR at PC97: Unhandled construct in 'MakeBoolean' P1
+
+      if game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+        if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value <= 0 then
+          game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(10, 15) * Settings.EXPMultiplier
+        else
+          if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value > 0 and game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value <= 4 then
+            game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(7, 10) * Settings.EXPMultiplier
+          else
+            if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 5 and game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value <= 9 then
+              game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(4, 6) * Settings.EXPMultiplier
+            else
+              if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(1, 3)
+              end
+            end
+          end
+        end
+      end
+      if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - targ.Stats.Level.Value <= 0 then
+        game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(10, 15) * Settings.EXPMultiplier
+      else
+        if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - targ.Stats.Level.Value > 0 and game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - targ.Stats.Level.Value <= 4 then
+          game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(7, 10) * Settings.EXPMultiplier
+        else
+          if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - targ.Stats.Level.Value >= 5 and game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - targ.Stats.Level.Value <= 9 then
+            game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(4, 6) * Settings.EXPMultiplier
+          else
+            if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - targ.Stats.Level.Value >= 10 then
+              game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + math.random(1, 3)
+            end
+          end
+        end
+      end
+      wait(1)
+      GainEXPPLZ = true
+    end
+  end
+)
+      end
+      local Critic = math.random(1, 100)
+      if CriticEnabled ~= nil and CriticEnabled == false then
+        Critic = 101
+      end
+      do
+        if game.Players:FindFirstChild(targ.Name) then
+          local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+          print(difference)
+        end
+        if Critic <= Settings.CriticChance then
+          if type == "Energy" then
+            -- DECOMPILER ERROR at PC159: Unhandled construct in 'MakeBoolean' P1
+
+            if game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+              if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                do
+                  targ.Humanoid:TakeDamage(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                end
+              else
+                do
+                  targ.Humanoid:TakeDamage(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                  targ.Humanoid:TakeDamage(dmg * Settings.CriticMultiplier / targ.Stats.EnergyDefense.Value)
+                  if targ:FindFirstChild("KnockBack") then
+                    targ.KnockBack.Value = true
+                  end
+                  local Audio = Instance.new("Sound", game.Players.LocalPlayer.Character.Torso)
+                  Audio.Name = "Punch"
+                  Audio.SoundId = "rbxassetid://272992637"
+                  Audio.Volume = 1
+                  Audio:Play()
+                  game:GetService("Debris"):AddItem(Audio, 3)
+                  -- DECOMPILER ERROR at PC328: Unhandled construct in 'MakeBoolean' P1
+
+                  if game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+                    if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                      local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                      targ.Humanoid:TakeDamage(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                    else
+                      do
+                        do
+                          targ.Humanoid:TakeDamage(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                          targ.Humanoid:TakeDamage(dmg * Settings.CriticMultiplier / targ.Stats.PhysicalDefense.Value)
+                          if targ:FindFirstChild("KnockBack") then
+                            targ.KnockBack.Value = true
+                          end
+                          -- DECOMPILER ERROR at PC477: Unhandled construct in 'MakeBoolean' P1
+
+                          if type == "Energy" and game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+                            if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                              local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                              targ.Humanoid:TakeDamage(dmg / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                            else
+                              do
+                                targ.Humanoid:TakeDamage(dmg / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                                targ.Humanoid:TakeDamage(dmg / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                                targ.Humanoid:TakeDamage(dmg / targ.Stats.EnergyDefense.Value)
+                                -- DECOMPILER ERROR at PC627: Unhandled construct in 'MakeBoolean' P1
+
+                                if game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+                                  if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                                    local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                                    targ.Humanoid:TakeDamage(dmg / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                                  else
+                                    do
+                                      targ.Humanoid:TakeDamage(dmg / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                                      targ.Humanoid:TakeDamage(dmg / targ.Stats.PhysicalDefense.Value)
+                                      local ShowKanji = math.random(1, 3)
+                                      if ShowKanji == 1 and targ.Torso:FindFirstChild("Kanji") == nil then
+                                        local Kanjis = {270588178, 270739239, 270739240, 270739242, 270739250, 270739248, 270739247, 270739251}
+                                        local Kanji = script.Kanji:Clone()
+                                        local RandomKanji = Kanjis[math.random(1, #Kanjis)]
+                                        Kanji.ImageLabel.Image = "rbxassetid://" .. RandomKanji
+                                        Kanji.ImageLabel.Rotation = math.random(-10, 10)
+                                        Kanji.Parent = targ.Torso
+                                        local KanjiSize = math.random(150, 300)
+                                        Kanji.Size = UDim2.new(KanjiSize / 100, 0, KanjiSize / 100, 0)
+                                        Kanji.StudsOffset = Vector3.new(math.random(-2, 2), 5, math.random(-2, 2))
+                                        spawn(function()
+    for i = 1, 10 do
+      wait()
+      Kanji.Size = Kanji.Size + UDim2.new(0, 5, 0, 5)
+    end
+    for i = 1, 10 do
+      wait()
+      Kanji.Size = Kanji.Size - UDim2.new(0, 3, 0, 3)
+    end
+    for i = 1, 10 do
+      wait()
+      Kanji.Size = Kanji.Size + UDim2.new(0, 2, 0, 2)
+    end
+    for i = 1, 10 do
+      wait()
+      Kanji.Size = Kanji.Size - UDim2.new(0, 1, 0, 1)
+    end
+    wait(0.5)
+    Kanji:Destroy()
+  end
+)
+                                      end
+                                      do
+                                        local Shower = script.Damage:Clone()
+                                        Shower.Parent = targ.Torso
+                                        Shower.TextLabel.Text = dmg
+                                        Shower.TextLabel.Rotation = math.random(-20, 20)
+                                        Shower.StudsOffset = Vector3.new(math.random(-3, 3), math.random(4, 6), math.random(-3, 3))
+                                        spawn(function()
+    for i = 1, 25, 2 do
+      wait(0.05)
+      Shower.StudsOffset = Shower.StudsOffset + Vector3.new(0, Settings.TweenHeight / 25, 0)
+    end
+    Shower:Destroy()
+  end
+)
+                                        if type == "Energy" then
+                                          -- DECOMPILER ERROR at PC877: Unhandled construct in 'MakeBoolean' P1
+
+                                          if game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+                                            if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                                              local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                                              Shower.TextLabel.Text = math.floor(dmg / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                                            else
+                                              do
+                                                Shower.TextLabel.Text = math.floor(dmg / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                                                Shower.TextLabel.Text = math.floor(dmg / targ.Stats.EnergyDefense.Value)
+                                                -- DECOMPILER ERROR at PC1017: Unhandled construct in 'MakeBoolean' P1
+
+                                                if Critic <= Settings.CriticChance and game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+                                                  if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                                                    local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                                                    Shower.TextLabel.Text = "Critic: " .. math.floor(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                                                  else
+                                                    do
+                                                      Shower.TextLabel.Text = "Critic: " .. math.floor(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).EnergyDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalEnergyDefense.Value))
+                                                      Shower.TextLabel.Text = "Critic: " .. math.floor(dmg * Settings.CriticMultiplier / targ.Stats.EnergyDefense.Value)
+                                                      -- DECOMPILER ERROR at PC1169: Unhandled construct in 'MakeBoolean' P1
+
+                                                      if game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+                                                        if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                                                          local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                                                          Shower.TextLabel.Text = math.floor(dmg / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                                                        else
+                                                          do
+                                                            Shower.TextLabel.Text = math.floor(dmg / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                                                            Shower.TextLabel.Text = math.floor(dmg / targ.Stats.PhysicalDefense.Value)
+                                                            -- DECOMPILER ERROR at PC1309: Unhandled construct in 'MakeBoolean' P1
+
+                                                            if Critic <= Settings.CriticChance and game.Players:FindFirstChild(targ.Name) and game.Players:FindFirstChild(targ.Name).PVP.Value == false and game.Players.LocalPlayer.PVP.Value == false then
+                                                              if game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value >= 10 then
+                                                                local difference = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Level.Value - game.Players[targ.Name]["Data" .. game.Players[targ.Name].ActiveSlot.Value].Level.Value
+                                                                Shower.TextLabel.Text = "Critic: " .. math.floor(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                                                              else
+                                                                do
+                                                                  Shower.TextLabel.Text = "Critic: " .. math.floor(dmg * Settings.CriticMultiplier / (game.Players:FindFirstChild(targ.Name).PhysicalDefense.Value + game.Players:FindFirstChild(targ.Name).AdditionalPhysicalDefense.Value))
+                                                                  Shower.TextLabel.Text = "Critic: " .. math.floor(dmg * Settings.CriticMultiplier / targ.Stats.PhysicalDefense.Value)
+                                                                  if targ.Humanoid.Health <= 0 then
+                                                                    if targ:FindFirstChild("Stats") and targ.Stats:FindFirstChild("DropRate") then
+                                                                      local RandomDropChance = math.random(1, 100)
+                                                                      if RandomDropChance <= targ.Stats.DropRate.Value then
+                                                                        local cap = game.ReplicatedStorage.Assets.Models.Capsule2:Clone()
+                                                                        cap.BodyPosition.position = targ.Torso.Position
+                                                                        cap.CFrame = CFrame.new(targ.Torso.CFrame.p)
+                                                                        cap.Rarity.Value = RandomDropChance
+                                                                        cap.Parent = game.Workspace
+                                                                        cap.Script.Disabled = false
+                                                                      end
+                                                                    end
+                                                                    do
+                                                                      print("Object Sent: " .. targ.Name)
+                                                                      QuestLogFunctions.UpdateObject(game.Players.LocalPlayer.PlayerGui.MainUI.QuestLog.QuestLogBox.ScrollingFrame, targ.Name)
+                                                                    end
+                                                                  end
+                                                                end
+                                                              end
+                                                            end
+                                                          end
+                                                        end
+                                                      end
+                                                    end
+                                                  end
+                                                end
+                                              end
+                                            end
+                                          end
+                                        end
+                                      end
+                                    end
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+return DamageShower
