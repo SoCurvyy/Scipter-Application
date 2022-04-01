@@ -1,0 +1,223 @@
+local module = {}
+module.RecipePages = {
+	[1] = 1777614867,
+	[2] = 1777632516,
+	[3] = 1718625534,
+	[4] = 1718625534
+}
+module.GamepassItems = {
+	["Rainbow Spatula"] = true,
+	["Rainbow Apron"] = true,
+	["Rainbow Chef"] = true,
+	["Gold Spatula"] = true,
+	["Gold Apron"] = true,
+	["Gold Chef"] = true,
+	["Infinite Apron"] = true
+}
+module.Shop = {
+	Gamepass = {
+		[1] = {
+			4475205,
+			1943034280,
+			"Emotes"
+		},
+		[2] = {
+			4475198,
+			1800872465,
+			"Cook"
+		},
+		[3] = {
+			4475199,
+			1800837617,
+			"Run"
+		},
+		[4] = {
+			4475200,
+			1865588885,
+			"Cash"
+		},
+		[5] = {
+			4475201,
+			1858257625,
+			"Gold"
+		},
+		[6] = {
+			4475203,
+			1858257394,
+			"Rainbow"
+		},
+		[7] = {
+			4475212,
+			1800872943,
+			"Vip"
+		},
+		[8] = {
+			4622973,
+			1907099269,
+			"Infinite"
+		},
+		[9] = {
+			4475196,
+			1800837944,
+			"Radio"
+		}
+	},
+	Cash = {
+		[1] = {
+			223887238,
+			1869580477,
+			"Cash"
+		},
+		[2] = {
+			223925139,
+			1869580642,
+			"Cash"
+		},
+		[3] = {
+			223926084,
+			1869617934,
+			"Cash"
+		},
+		[4] = {
+			223926294,
+			1869580843,
+			"Cash"
+		},
+		[5] = {
+			223926612,
+			1869580982,
+			"Cash"
+		},
+		[6] = {
+			223926983,
+			1869581087,
+			"Cash"
+		},
+		[7] = {
+			223927256,
+			1871753276,
+			"Cash"
+		},
+		[8] = {
+			274913513,
+			1939595631,
+			"Cash"
+		}
+	},
+	Ad = 280309856
+}
+module.Badges = {
+	Cooked = {
+		[100] = 1889692075,
+		[1000] = 1889693834,
+		[5000] = 1889694788,
+		[10000] = 1889695819,
+		[50000] = 1889696764,
+		[100000] = 1889697696,
+		[500000] = 1889699956,
+		[1000000] = 1889705824
+	},
+	Devs = 1898578604,
+	Rebirth = 1898582250,
+	Minigame = 1898581372
+}
+module.Missions = {
+	[1] = {
+		"Starter",
+		{
+			"Cook",
+			{15, "Waffles"},
+			{
+				10,
+				"Sloth Cereal"
+			},
+			{5, "Biscuit"}
+		},
+		{
+			{"Cash", 500}
+		}
+	},
+	[2] = {
+		"Larry's Cheat Day",
+		{
+			"Cook",
+			{100, "Waffles"},
+			{50, "Donuts"},
+			{50, "Pancakes"}
+		},
+		{
+			{"Cash", 2000}
+		}
+	},
+	[3] = {
+		"One Lunch Man",
+		{
+			"Cook",
+			{15, "Pizza"},
+			{
+				15,
+				"Club Sandwich"
+			}
+		},
+		{
+			{"Cash", 10000}
+		}
+	},
+	[4] = {
+		"Slow as a sloth",
+		{
+			"Cook",
+			{
+				150,
+				"Sloth Cereal"
+			},
+			{
+				200,
+				"Sloth Sandwich"
+			},
+			{300, "Sloth"}
+		},
+		{
+			{"Cash", 100000}
+		}
+	},
+	[5] = {
+		"Scavenger",
+		{
+			"Find",
+			workspace.Map.Find["Mini me"]
+		},
+		{
+			{"Cash", 750}
+		}
+	}
+}
+module.People = {
+	Devs = {
+		[3359213] = "Owner",
+		[47528603] = "Developer",
+		[72992211] = "Contributor",
+		[15125423] = "Contributor",
+		[8034104] = "Contributor"
+	},
+	Commands = {
+		[3359213] = true,
+		[47528603] = true,
+		[-1] = true
+	}
+}
+module.Anims = {
+	SpatulaFlip = {
+		[1] = {
+			"rbxassetid://" .. 1758635359,
+			"Spatula Flip1"
+		}
+	},
+	Dual = "rbxassetid://" .. 2000718699,
+	["Vip Teleport"] = "rbxassetid://" .. 1856109753,
+	Emotes = {
+		bm = "rbxassetid://" .. 1936151438,
+		floss = "rbxassetid://" .. 1940131396
+	}
+}
+return module
