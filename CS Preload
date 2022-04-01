@@ -1,0 +1,12 @@
+local module = {}
+module.assets = {
+	"rbxassetid://" .. 1702571177,
+	"rbxassetid://" .. 1702569903,
+	"rbxassetid://" .. 1702569739,
+	"rbxassetid://" .. 1702570772,
+	"rbxassetid://" .. 1702570121,
+	"rbxassetid://" .. 1702571001,
+	"rbxassetid://" .. 1702570007,
+	"rbxassetid://" .. 1702571555
+}
+return module
