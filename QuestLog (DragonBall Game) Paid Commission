@@ -1,0 +1,196 @@
+local Log = {}
+local Bin = Instance.new("Message", game.Workspace.CurrentCamera)
+Bin.Name = "QuestItems"
+local LogImages = {Active = "rbxassetid://284732974", Selected = "rbxassetid://284711347", Regular = "rbxassetid://284709688"}
+Log.RemoveQuest = function(QuestLogScrollingFrame, QuestString)
+  local foundit = false
+  local Quest = nil
+  for i,v in pairs(QuestLogScrollingFrame:GetChildren()) do
+    if v:findFirstChild("Title") and v.Title.Value == QuestString then
+      Quest = v
+    end
+  end
+  for i,v in pairs(QuestLogScrollingFrame.Parent.Parent.Parent.ActiveQuestList:GetChildren()) do
+    if v.Name == QuestString then
+      v:Destroy()
+    end
+  end
+  if Quest ~= nil and QuestLogScrollingFrame.className == "ScrollingFrame" then
+    local iterate = (Quest.Position.Y.Offset - 2) / 50
+    Quest:Destroy()
+    for i,v in pairs(QuestLogScrollingFrame:GetChildren()) do
+      if v.className == "ImageButton" and iterate < (v.Position.Y.Offset - 2) / 50 then
+        local thisiteration = (v.Position.Y.Offset - 2) / 50
+        v:TweenPosition(UDim2.new(0, v.Position.X.Offset, 0, 2 + (thisiteration - 1) * 50), "Out", "Quad", 1, true)
+      end
+    end
+    QuestLogScrollingFrame.Parent.QuestBox.Visible = false
+  end
+end
+
+Log.ActivateQuest = function(QuestLogScrollingFrame, Quest)
+  local ActiveList = QuestLogScrollingFrame.Parent.Parent.Parent.ActiveQuestList
+  for i,v in pairs(ActiveList:GetChildren()) do
+    if v.Name ~= "Template" and v.className == "ImageLabel" then
+      v:Destroy()
+    end
+  end
+  for i,v in pairs(Quest.Parent:GetChildren()) do
+    if v:findFirstChild("ActiveQuest") then
+      v.ActiveQuest.Value = false
+      v.Image = LogImages.Regular
+      if v == Quest then
+        v.ActiveQuest.Value = true
+        v.Image = LogImages.Active
+      end
+    end
+  end
+  for i,v in pairs(Quest.Objectives:GetChildren()) do
+    if v.Name == "ObjectNeeded" then
+      local newQuest = ActiveList.Template:clone()
+      newQuest.Visible = true
+      newQuest.Parent = ActiveList
+      newQuest.Name = Quest.Title.Value
+      print("Searching value " .. v.Name, " And we find " .. v.Value)
+      newQuest.Object.Text = v.Value .. ": " .. v.NumberTakenCareOf.Value .. "/" .. v.NumberNeeded.Value
+      if v:FindFirstChild("Position") then
+        newQuest.Direction.Visible = true
+        newQuest.Direction.Pos.Value = v.Position.Value
+        newQuest.Direction.LocalScript.Disabled = false
+      else
+        newQuest.Direction.Visible = false
+        newQuest.Direction.Pos.Value = Vector3.new(0, 0, 0)
+        newQuest.Direction.LocalScript.Disabled = true
+      end
+    end
+  end
+end
+
+Log.GiveRewards = function(QuestScrollingFrame, QuestString)
+  print(QuestString)
+  for i,v in pairs(QuestScrollingFrame:GetChildren()) do
+    if v:FindFirstChild("Title") and v.Title.Value == QuestString then
+      game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].EXP.Value + v.EXP.Value
+      game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Zeni.Value = game.Players.LocalPlayer["Data" .. game.Players.LocalPlayer.ActiveSlot.Value].Zeni.Value + v.Zeni.Value
+    end
+  end
+  game.Players.LocalPlayer.PlayerGui.MainUI.Music.Volume = 0
+  QuestScrollingFrame.Parent.QuestFinish:Play()
+  Log.RemoveQuest(QuestScrollingFrame, QuestString)
+  spawn(function()
+    wait(7)
+    for i = 1, 10 do
+      wait(0.05)
+      game.Players.LocalPlayer.PlayerGui.MainUI.Music.Volume = i / 10
+    end
+  end
+)
+end
+
+Log.DeActivateQuest = function(QuestLogScrollingFrame, Quest)
+  local ActiveList = QuestLogScrollingFrame.Parent.Parent.Parent.ActiveQuestList
+  for i,v in pairs(ActiveList:GetChildren()) do
+    if v.Name ~= "Template" and v.className == "ImageLabel" then
+      v:Destroy()
+    end
+  end
+  Quest.ActiveQuest.Value = false
+  Quest.Image = LogImages.Selected
+end
+
+Log.AddQuest = function(QuestLogScrollingFrame, Quest)
+  local Job = QuestLogScrollingFrame.JobTemplate:clone()
+  Job.Name = "Job"
+  local NoJob = true
+  local GetAmount = 0
+  for i,v in pairs(QuestLogScrollingFrame:GetChildren()) do
+    if v:findFirstChild("ActiveQuest") and v.Name ~= "ActiveJob" and v.Name ~= "JobTemplate" and v.Name ~= "SelectedJob" then
+      GetAmount = GetAmount + 1
+      if v.ActiveQuest.Value == true then
+        NoJob = false
+      else
+        v.Image = LogImages.Regular
+      end
+    end
+  end
+  Job.Parent = QuestLogScrollingFrame
+  Job.Visible = true
+  Job.Position = UDim2.new(0, QuestLogScrollingFrame.JobTemplate.Position.X.Offset, 0, 2 + (GetAmount) * 50)
+  for i,v in pairs(Quest:GetChildren()) do
+    if Job:findFirstChild(v.Name) and string.sub(string.reverse(Job:findFirstChild(v.Name).className), 1, 5) == string.reverse("Value") then
+      Job:findFirstChild(v.Name).Value = v.Value
+    end
+  end
+  Job.Items:Destroy()
+  Quest.Items:clone().Parent = Job
+  if Job.Objectives:findFirstChild("ObjectNeeded") then
+    Job.Objectives.ObjectNeeded:Destroy()
+  end
+  for i,v in pairs(Quest.Objectives:GetChildren()) do
+    if v.Name == "ObjectNeeded" then
+      local JobObj = v.Parent.ObjectNeeded:clone()
+      JobObj.Value = v.Value
+      JobObj.NumberNeeded.Value = v.NumberNeeded.Value
+      JobObj.NumberTakenCareOf.Value = v.NumberTakenCareOf.Value
+      JobObj.Parent = Job.Objectives
+      for i,v in pairs(JobObj:GetChildren()) do
+        if v.Name == "Position" and game.ReplicatedStorage.QuestItems:findFirstChild(JobObj.Value) then
+          local cloneObj = game.ReplicatedStorage.QuestItems:findFirstChild(JobObj.Value):clone()
+          cloneObj.Position = v.Value
+          cloneObj.Parent = Bin
+        end
+      end
+    end
+  end
+  Job.Objectives.QuestType.Value = Quest.Objectives.QuestType.Value
+  Job.QuestName.Text = Job.Title.Value
+  Job.LevelRequired.Text = "Lv. " .. Job.RequiredLevel.Value
+  if NoJob == true then
+    Log.ActivateQuest(QuestLogScrollingFrame, Job)
+  else
+    Job.ActiveQuest.Value = false
+    Job.Image = LogImages.Selected
+  end
+end
+
+FindClosestMatch = function(root, search)
+  for i,v in pairs(root:GetChildren()) do
+    if string.match(v.Name, search) then
+      local X = string.match(v.Name, search)
+      return v
+    end
+  end
+end
+
+Log.UpdateObject = function(QuestLogScrollingFrame, ObjectUpdate, objecttodelete)
+  if QuestLogScrollingFrame.className == "ScrollingFrame" then
+    for i,v in pairs(QuestLogScrollingFrame:GetChildren()) do
+      if v:findFirstChild("Objectives") then
+        for _,z in pairs(v.Objectives:GetChildren()) do
+          print("We\'re looking for " .. z.Value .. " and find " .. ObjectUpdate)
+          if ObjectUpdate:find(z.Value) and z.NumberTakenCareOf.Value < z.NumberNeeded.Value then
+            local NumberNeeded = z.NumberNeeded
+            local NumberDone = z.NumberTakenCareOf
+            NumberDone.Value = NumberDone.Value + 1
+            QuestLogScrollingFrame.Parent.QuestItemGet:Play()
+            if objecttodelete ~= nil then
+              objecttodelete:Destroy()
+            end
+            if v.ActiveQuest.Value == true then
+              for k,j in pairs(QuestLogScrollingFrame.Parent.Parent.Parent.ActiveQuestList:GetChildren()) do
+                if j.Name == v.Title.Value then
+                  j.Object.Text = z.Value .. ": " .. NumberDone.Value .. "/" .. NumberNeeded.Value
+                  if z.NumberTakenCareOf.Value == z.NumberNeeded.Value and j:FindFirstChild("Direction") then
+                    j.Direction.Visible = false
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+return Log
